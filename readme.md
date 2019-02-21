@@ -4,7 +4,6 @@
 > An experiment evolving an alpha predator
 
 ```sh
-yarn install
+yarn setup
 yarn start
 ```
-
