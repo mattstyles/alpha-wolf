@@ -1,0 +1,6 @@
+[submodule "packages/colour16"]
+	path = packages/colour16
+	url = git@github.com:mattstyles/colour16
+[submodule "packages/react-basic-kit"]
+	path = packages/react-basic-kit
+	url = git@github.com:mattstyles/react-basic-kit

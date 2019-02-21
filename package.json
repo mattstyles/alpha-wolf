@@ -1,0 +1,52 @@
+{
+  "name": "@white-wolf/monorepo",
+  "private": "true",
+  "version": "0.0.0",
+  "description": "Experiment with genetic algorithms",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Matt Styles",
+  "workspaces": [
+    "packages/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/mattstyles/white-wolf/issues"
+  },
+  "homepage": "https://mattstyles.github.io/white-wolf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattstyles/white-wolf.git"
+  },
+  "keywords": [
+    "genetic algorithm",
+    "evolution",
+    "experiment"
+  ],
+  "scripts": {
+    "precommit": "lint-staged",
+    "setup": "lerna bootstrap --concurrency=1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "standard"
+    ],
+    "*.jsx": [
+      "standard"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**",
+      "**/lib/"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "husky": "^1.3.1",
+    "lerna": "^3.13.0",
+    "lint-staged": "^8.1.4",
+    "standard": "^12.0.1"
+  }
+}
