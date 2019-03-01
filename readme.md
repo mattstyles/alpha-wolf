@@ -1,7 +1,7 @@
 
 # Alpha Wolf
 
-> An experiment evolving an alpha predator
+> An experiment evolving an apex predator
 
 ```sh
 yarn setup

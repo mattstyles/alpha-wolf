@@ -10,12 +10,12 @@
     "packages/*"
   ],
   "bugs": {
-    "url": "https://github.com/mattstyles/white-wolf/issues"
+    "url": "https://github.com/mattstyles/alpha-wolf/issues"
   },
-  "homepage": "https://mattstyles.github.io/white-wolf",
+  "homepage": "https://mattstyles.github.io/alpha-wolf",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattstyles/white-wolf.git"
+    "url": "git+https://github.com/mattstyles/alpha-wolf.git"
   },
   "keywords": [
     "genetic algorithm",
