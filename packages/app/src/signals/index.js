@@ -2,9 +2,7 @@
 import { Signal } from 'raid'
 import { adaptor } from 'raid-addons'
 
-const initial = {
-  message: 'hello'
-}
+import { initial } from './state'
 
 export const signal = Signal.of(initial)
 export const connect = adaptor(signal)

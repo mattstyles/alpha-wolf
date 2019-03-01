@@ -5,11 +5,19 @@ import { signal } from 'signals'
 import { App } from 'components/app'
 import { Navigation } from 'components/navigation'
 
+import { update as mapUpdate } from 'core/map/updates'
+
 if (process.env.DEBUG) {
   window.signal = signal
+  signal.register((state, event) => {
+    console.log(event, '::', state)
+    return state
+  })
 }
 
 const el = document.querySelector('.js-main')
+
+signal.register(mapUpdate)
 
 signal.observe(state => {
   render(
