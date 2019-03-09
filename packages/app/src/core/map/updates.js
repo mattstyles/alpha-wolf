@@ -1,17 +1,17 @@
 
 import { patch, match } from 'raid-addons'
 
+import { is } from 'utils'
 import { KEY, actions } from './constants'
+import { generateMap } from './generator/generator'
 
-const is = type => event => event.type === type
-
-const generateMap = (state, event) => {
+const updateGenerateMap = (state, event) => {
   return {
     ...state,
-    data: Math.random()
+    data: generateMap(state)
   }
 }
 
 export const update = patch(KEY, match([
-  [is(actions.generate), generateMap]
+  [is(actions.generate), updateGenerateMap]
 ]))
