@@ -73,7 +73,7 @@
     "lodash": "^4.17.11",
     "most": "^1.7.3",
     "open-color": "^1.6.3",
-    "pixi.js": "^4.8.5",
+    "pixi.js": "^5.0.0-rc.2",
     "prop-types": "^15.7.2",
     "raid": "^3.0.0",
     "raid-addons": "^3.0.0",

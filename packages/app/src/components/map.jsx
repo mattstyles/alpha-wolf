@@ -1,6 +1,6 @@
 
-// import PIXI from 'pixi.js'
-import { Stage, Container, Sprite } from '@inlet/react-pixi'
+import { Texture, Rectangle } from 'pixi.js'
+import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
 import { connect } from 'signals'
 import { tiles } from 'core/map/generator/tiles'
@@ -8,20 +8,20 @@ import { getMapView } from 'core/map/selectors'
 
 import spritesheet from 'assets/map.png'
 
-window.PIXI.settings.SCALE_MODE = window.PIXI.SCALE_MODES.NEAREST
+// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
 const TEX_SIZE = [4, 4]
 const TEX_CELL_SIZE = [16, 16]
 const CELL_SIZE = [16, 16]
 
-const baseTexture = window.PIXI.Texture.fromImage(spritesheet)
+const baseTexture = Texture.from(spritesheet)
 const frames = []
 
 for (let v = 0; v < TEX_SIZE[1]; v++) {
   for (let u = 0; u < TEX_SIZE[0]; u++) {
-    frames.push(new window.PIXI.Texture(
+    frames.push(new Texture(
       baseTexture,
-      new window.PIXI.Rectangle(
+      new Rectangle(
         u * TEX_CELL_SIZE[0],
         v * TEX_CELL_SIZE[1],
         TEX_CELL_SIZE[0],
