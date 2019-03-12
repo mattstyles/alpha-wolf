@@ -28,7 +28,7 @@ export const Home = connect(
           })}>Go to simulation</Button>
         </FlexBox>
         <FlexBox px={2}>
-          <Map data={map} size={size} />
+          <Map />
         </FlexBox>
       </Pane>
     </View>

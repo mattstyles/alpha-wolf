@@ -1,36 +1,46 @@
 
-import styled from 'styled-components'
+// import PIXI from 'pixi.js'
+import { Stage, Container, Sprite } from '@inlet/react-pixi'
 
+import { connect } from 'signals'
 import { tiles } from 'core/map/generator/tiles'
+import { getMapView } from 'core/map/selectors'
 
-const get = value => props => props[value]
+import spritesheet from 'assets/map.png'
 
-const TILE_CHAR_SIZE = 16
-const TILE_SIZE = [14, 14]
+window.PIXI.settings.SCALE_MODE = window.PIXI.SCALE_MODES.NEAREST
 
-const Tile = styled('span').attrs(({ color, x, y }) => ({
-  style: {
-    transform: `translate3d(${x}px, ${y}px, 0)`,
-    color: `rgb(${color.join(',')})`
+const TEX_SIZE = [4, 4]
+const TEX_CELL_SIZE = [16, 16]
+const CELL_SIZE = [16, 16]
+
+const baseTexture = window.PIXI.Texture.fromImage(spritesheet)
+const frames = []
+
+for (let v = 0; v < TEX_SIZE[1]; v++) {
+  for (let u = 0; u < TEX_SIZE[0]; u++) {
+    frames.push(new window.PIXI.Texture(
+      baseTexture,
+      new window.PIXI.Rectangle(
+        u * TEX_CELL_SIZE[0],
+        v * TEX_CELL_SIZE[1],
+        TEX_CELL_SIZE[0],
+        TEX_CELL_SIZE[1]
+      )
+    ))
   }
-}))`
-  position: absolute;
-  font-size: ${TILE_CHAR_SIZE}px;
-`
+}
 
-const MapBack = styled('div')`
-  background: rgb(23, 22, 28);
-  width: ${get('w')}px;
-  height: ${get('h')}px;
-`
+const appOpts = {
+  background: 0x404040
+}
 
-export const Map = ({ data, size }) => {
+const MapView = ({ data, size, to1d }) => {
   if (!data) {
     return null
   }
 
   const [w, h] = size
-  const to1d = (x, y) => (y * w) + x
   let elems = []
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
@@ -38,21 +48,27 @@ export const Map = ({ data, size }) => {
       const d = data[i]
       const tile = tiles[d.type]
       elems.push((
-        <Tile
+        <Sprite
           key={`tile${i}`}
-          x={x * TILE_SIZE[0]}
-          y={y * TILE_SIZE[1]}
-          color={tile.colorModulation[0]}
-        >
-          {tile.character}
-        </Tile>
+          x={x * CELL_SIZE[0]}
+          y={y * CELL_SIZE[1]}
+          texture={frames[tile.frame]}
+          tint={tile.colorModulation[0]}
+        />
       ))
     }
   }
 
   return (
-    <MapBack w={w * TILE_SIZE[0]} h={h * TILE_SIZE[1] + 6}>
-      {elems}
-    </MapBack>
+    <Stage width={w * CELL_SIZE[0]} height={h * CELL_SIZE[1]} options={appOpts}>
+      <Container>
+        {elems}
+      </Container>
+    </Stage>
   )
 }
+
+export const Map = connect(
+  getMapView,
+  MapView
+)

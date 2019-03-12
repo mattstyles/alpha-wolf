@@ -66,12 +66,14 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
+    "@inlet/react-pixi": "^0.5.5",
     "colour16": "*",
     "eventemitter3": "^3.1.0",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
     "most": "^1.7.3",
     "open-color": "^1.6.3",
+    "pixi.js": "^4.8.5",
     "prop-types": "^15.7.2",
     "raid": "^3.0.0",
     "raid-addons": "^3.0.0",
