@@ -69,6 +69,7 @@
     "@inlet/react-pixi": "^0.5.5",
     "colour16": "*",
     "eventemitter3": "^3.1.0",
+    "fast-simplex-noise": "3.2.0",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
     "most": "^1.7.3",

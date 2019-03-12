@@ -5963,6 +5963,11 @@ fast-levenshtein@~2.0.4:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
 
+fast-simplex-noise@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fast-simplex-noise/-/fast-simplex-noise-3.2.0.tgz#ae0b3cd7b9c2a056ecc72c2f7440cf7d0e3bca96"
+  integrity sha1-rgs817nCoFbsxywvdEDPfQ47ypY=
+
 fastparse@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.2.tgz#91728c5a5942eced8531283c79441ee4122c35a9"

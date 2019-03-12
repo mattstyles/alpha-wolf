@@ -1,7 +1,8 @@
 
 export const BaseTile = {
   temperature: 0,
-  precipitation: 0
+  precipitation: 0,
+  elevation: 0
 }
 
 export const generateTile = (props) => ({
