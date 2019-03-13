@@ -15,16 +15,20 @@ const getTileType = (t, p, e) => {
   return tileTypes[2]
 }
 
+const calculateTemperature = (elevation, baseTemp) => {
+  return ((1 - elevation) * 0.65) + (baseTemp * 0.35)
+}
+
 // @TODO
 export const generateMap = props => {
   const [w, h] = props.size
 
   const temperatureData = new FastSimplexNoise({
-    frequency: 0.01,
     max: 1,
     min: 0,
     octaves: 4,
-    amplitude: 0.8
+    frequency: 0.1,
+    amplitude: 1
   })
   const precipitationData = new FastSimplexNoise({
     frequency: 0.01,
@@ -49,7 +53,10 @@ export const generateMap = props => {
 
     for (let x = 0; x < w; x++) {
       const characteristics = {
-        temperature: temperatureData.scaled([x, y]),
+        temperature: calculateTemperature(
+          elevationData.scaled([x, y]),
+          temperatureData.scaled([x, y])
+        ),
         precipitation: precipitationData.scaled([x, y]),
         elevation: elevationData.scaled([x, y])
       }

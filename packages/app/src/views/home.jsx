@@ -6,6 +6,7 @@ import { connect } from 'signals'
 import { push, routes } from 'core/routing'
 import { generateMap } from 'core/map/actions'
 import { Map } from 'components/map'
+import { HeatMap } from 'components/heatmap'
 import { getMap, getMapSize } from 'core/map/selectors'
 
 const viewSelector = createStructuredSelector({
@@ -29,6 +30,7 @@ export const Home = connect(
         </FlexBox>
         <FlexBox px={2}>
           <Map />
+          <HeatMap />
         </FlexBox>
       </Pane>
     </View>
