@@ -31,18 +31,19 @@ export const generateMap = props => {
     amplitude: 1
   })
   const precipitationData = new FastSimplexNoise({
-    frequency: 0.01,
     max: 1,
     min: 0,
     octaves: 4,
-    amplitude: 0.8
+    frequency: 0.18,
+    amplitude: 1,
+    persistence: 0.1
   })
   const elevationData = new FastSimplexNoise({
     max: 1,
     min: 0,
     octaves: 8,
-    amplitude: 0.9,
     frequency: 0.15,
+    amplitude: 0.9,
     persistence: 0.1
   })
 

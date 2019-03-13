@@ -5,6 +5,7 @@
 * Fur -> higher means they can withstand colder temperatures, but be more likely to be hunted.
 * Aggression -> higher bestows better attack damage, but also dictates how likely they are to go looking for a fight. Fighting can be a source of food (prey will bestow food, hunters will not, aggression does not differentiate).
 * Wanderlust -> higher will mean they spend less time in caves and more time exploring
+* Senses -> higher will mean they can see further. This will be a good one to play with, it should be a float but the vision distance should be discrete, so the point at which 1 becomes 2 (i.e. 1.1, 1.4 or 1.8) will be interesting.
 
 ## World traits
 

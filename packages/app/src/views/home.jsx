@@ -5,8 +5,7 @@ import { View, Button, FlexBox, Pane } from 'react-basic-kit'
 import { connect } from 'signals'
 import { push, routes } from 'core/routing'
 import { generateMap } from 'core/map/actions'
-import { Map } from 'components/map'
-import { HeatMap } from 'components/heatmap'
+import { MainMap } from 'components/map/mainMap'
 import { getMap, getMapSize } from 'core/map/selectors'
 
 const viewSelector = createStructuredSelector({
@@ -29,8 +28,7 @@ export const Home = connect(
           })}>Go to simulation</Button>
         </FlexBox>
         <FlexBox px={2}>
-          <Map />
-          <HeatMap />
+          <MainMap />
         </FlexBox>
       </Pane>
     </View>
