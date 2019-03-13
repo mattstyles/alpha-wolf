@@ -4,6 +4,7 @@ import { random, reduce, compose } from 'lodash/fp'
 import { getPatch } from '../utils'
 
 const MAX_RIVER_LENGTH = 10
+const MIN_RIVER_LENGTH = 2
 const MAX_RIVER_ROOTS = 5
 
 /**
@@ -91,10 +92,12 @@ const createChain = (data) => {
 export const applyRivers = (data) => {
   let chains = []
 
+  // @TODO rather than MAX_RIVER_ROOTS, it could be calculated from the number
+  // of tiles i.e. data.length * data.length[0] * riverPerc
   for (let i = 0; i < MAX_RIVER_ROOTS; i++) {
     const chain = createChain(data)
 
-    if (chain && chain.length > 1) {
+    if (chain && chain.length >= MIN_RIVER_LENGTH) {
       chains.push(chain)
     }
   }
