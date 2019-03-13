@@ -45,21 +45,36 @@ export const generateMap = props => {
   const data = []
 
   for (let y = 0; y < h; y++) {
+    let row = []
+
     for (let x = 0; x < w; x++) {
       const characteristics = {
         temperature: temperatureData.scaled([x, y]),
         precipitation: precipitationData.scaled([x, y]),
         elevation: elevationData.scaled([x, y])
       }
-      data.push(generateTile({
+      const tile = generateTile({
         ...characteristics,
         type: getTileType(
           characteristics.temperature,
           characteristics.precipitation,
           characteristics.elevation
         )
-      }))
+      })
+
+      row.push(tile)
+
+      // data.push(generateTile({
+      //   ...characteristics,
+      //   type: getTileType(
+      //     characteristics.temperature,
+      //     characteristics.precipitation,
+      //     characteristics.elevation
+      //   )
+      // }))
     }
+
+    data.push(row)
   }
 
   return data
