@@ -2,7 +2,11 @@
 import FastSimplexNoise from 'fast-simplex-noise'
 
 import { generateTile, tileTypes } from './tiles'
+import { applyRivers } from './riverGenerator'
 
+/**
+ * Tile type is for plains, hills and mountains are dictated only by elevation
+ */
 const getTileType = (t, p, e) => {
   if (e > 0.75) {
     return tileTypes[0]
@@ -15,11 +19,18 @@ const getTileType = (t, p, e) => {
   return tileTypes[2]
 }
 
+/**
+ * Temperature is affected by base temp and elevation.
+ * Elevation is the key driver, base temp adds _flavour_ to temperature range
+ * of a specific tile.
+ */
 const calculateTemperature = (elevation, baseTemp) => {
   return ((1 - elevation) * 0.65) + (baseTemp * 0.35)
 }
 
-// @TODO
+/**
+ * Generates the core map data
+ */
 export const generateMap = props => {
   const [w, h] = props.size
 
@@ -47,7 +58,7 @@ export const generateMap = props => {
     persistence: 0.1
   })
 
-  const data = []
+  let data = []
 
   for (let y = 0; y < h; y++) {
     let row = []
@@ -71,19 +82,14 @@ export const generateMap = props => {
       })
 
       row.push(tile)
-
-      // data.push(generateTile({
-      //   ...characteristics,
-      //   type: getTileType(
-      //     characteristics.temperature,
-      //     characteristics.precipitation,
-      //     characteristics.elevation
-      //   )
-      // }))
     }
 
     data.push(row)
   }
+
+  data = applyRivers(data)
+
+  window.data = data
 
   return data
 }

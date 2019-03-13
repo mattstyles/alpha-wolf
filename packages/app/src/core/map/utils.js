@@ -34,3 +34,44 @@ export const createColorRangeFn = (min, max) => compose(
   toHexString,
   lerpColor(min, max)
 )
+
+/**
+ * Used to generate a patch, checks if [x, y] is in range
+ */
+const getPatchTile = (data, [x, y], [w, h]) => {
+  if (x < 0 || x >= w || y < 0 || y >= h) {
+    return null
+  }
+
+  return data[y][x]
+}
+
+/**
+ * Gets a patch of tiles based on an initial [x, y] location
+ * @param data <Array<Array[Tile]>> the 2d raw map
+ * @param position <Array[Number, Number]> [x, y] position to center on
+ * @param dim <Array[Number, Number]> patch size. Defaults to [-1, 1], can be
+ * used to alter the center.
+ * @returns <Array<Array[PositionTile]>>
+ */
+export const getPatch = (data, position, dim = [-1, 1]) => {
+  const [w, h] = [data[0].length, data.length]
+  const [x, y] = position
+  const [min, max] = dim
+
+  const patch = []
+  for (let i = y + min; i <= y + max; i++) {
+    for (let j = x + min; j <= x + max; j++) {
+      const tile = getPatchTile(data, [j, i], [w, h])
+      if (tile) {
+        patch.push({
+          ...tile,
+          x: j,
+          y: i
+        })
+      }
+    }
+  }
+
+  return patch
+}
