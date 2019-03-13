@@ -1,9 +1,7 @@
 
 import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
-import { connect } from 'signals'
 import { tiles } from 'core/map/generator/tiles'
-import { getMapView } from 'core/map/selectors'
 import { frames } from 'core/map/texture'
 
 const CELL_SIZE = [16, 16]
@@ -12,7 +10,7 @@ const appOpts = {
   background: 0x404040
 }
 
-const MapView = ({ data, size }) => {
+export const Map = ({ data, size }) => {
   if (!data) {
     return null
   }
@@ -44,8 +42,3 @@ const MapView = ({ data, size }) => {
     </Stage>
   )
 }
-
-export const Map = connect(
-  getMapView,
-  MapView
-)

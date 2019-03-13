@@ -1,8 +1,6 @@
 
 import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
-import { connect } from 'signals'
-import { getMapView } from 'core/map/selectors'
 import { frames } from 'core/map/texture'
 
 const CELL_SIZE = [16, 16]
@@ -11,7 +9,7 @@ const appOpts = {
   background: 0x404040
 }
 
-const HeatMapView = ({ data, size, colorFn, tileProp }) => {
+export const HeatMap = ({ data, size, colorFn, tileProp }) => {
   if (!data) {
     return null
   }
@@ -42,8 +40,3 @@ const HeatMapView = ({ data, size, colorFn, tileProp }) => {
     </Stage>
   )
 }
-
-export const HeatMap = connect(
-  getMapView,
-  HeatMapView
-)
