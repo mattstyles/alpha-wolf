@@ -22,11 +22,12 @@ export const HeatMap = ({ data, size, colorFn, tileProp }) => {
       const tile = data[y][x]
       elems.push((
         <Sprite
-          key={`tile${(y * w) + x}`}
+          key={`tile[${x}:${y}]`}
           x={x * CELL_SIZE[0]}
           y={y * CELL_SIZE[1]}
           texture={frames[7]}
           tint={colorFn(tile[tileProp])}
+          scale={1}
         />
       ))
     }

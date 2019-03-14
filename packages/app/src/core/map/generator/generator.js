@@ -87,9 +87,7 @@ export const generateMap = props => {
     data.push(row)
   }
 
-  data = applyRivers(data)
-
-  window.data = data
+  data = applyRivers(data, props.riverFrequency.value)
 
   return data
 }

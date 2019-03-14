@@ -10,6 +10,19 @@ const appOpts = {
   background: 0x404040
 }
 
+const getTileSprite = (tile, x, y) => {
+  return (
+    <Sprite
+      key={`tile[${x}:${y}]`}
+      x={x * CELL_SIZE[0]}
+      y={y * CELL_SIZE[1]}
+      texture={frames[tile.frame]}
+      tint={tile.colorModulation[0]}
+      scale={1}
+    />
+  )
+}
+
 export const Map = ({ data, size }) => {
   if (!data) {
     return null
@@ -22,15 +35,7 @@ export const Map = ({ data, size }) => {
     for (let x = 0; x < w; x++) {
       const d = data[y][x]
       const tile = tiles[d.type]
-      elems.push((
-        <Sprite
-          key={`tile${(y * w) + x}`}
-          x={x * CELL_SIZE[0]}
-          y={y * CELL_SIZE[1]}
-          texture={frames[tile.frame]}
-          tint={tile.colorModulation[0]}
-        />
-      ))
+      elems.push(getTileSprite(tile, x, y))
     }
   }
 

@@ -17,7 +17,12 @@ export const params = {
   },
   riverFrequency: {
     min: 0,
+    max: 0.2,
+    value: 0.01
+  },
+  vegetationSeedRate: {
+    min: 0,
     max: 1,
-    value: 0.1
+    value: 0.2
   }
 }

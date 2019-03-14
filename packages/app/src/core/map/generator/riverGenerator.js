@@ -5,9 +5,9 @@ import { getPatch } from '../utils'
 
 const MAX_RIVER_LENGTH = 10
 const MIN_RIVER_LENGTH = 2
-const MAX_RIVER_ROOTS = 5
 
 /**
+ * @param <Array[Tile]> 1d array of tiles to check
  * Returns [x, y] of the lowest elevation in a patch area
  */
 const findLowestElevation = compose(
@@ -72,7 +72,7 @@ const createChain = (data) => {
     const patch = getPatch(data, current)
     const lowest = findLowestElevation(patch)
 
-    if (lowest[0] !== current[0] && lowest[1] !== current[0]) {
+    if (lowest[0] !== current[0] && lowest[1] !== current[1]) {
       chain.push(lowest)
       current = lowest
     }
@@ -89,12 +89,13 @@ const createChain = (data) => {
  * no river will spawn and an additional chance it will be too short, it is
  * unlikely the algorithm will create the max possible number of rivers.
  */
-export const applyRivers = (data) => {
+export const applyRivers = (data, frequency) => {
   let chains = []
+  let maxRoots = data[0].length * data.length * frequency
 
   // @TODO rather than MAX_RIVER_ROOTS, it could be calculated from the number
   // of tiles i.e. data.length * data.length[0] * riverPerc
-  for (let i = 0; i < MAX_RIVER_ROOTS; i++) {
+  for (let i = 0; i < maxRoots; i++) {
     const chain = createChain(data)
 
     if (chain && chain.length >= MIN_RIVER_LENGTH) {
