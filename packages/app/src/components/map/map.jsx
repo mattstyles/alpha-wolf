@@ -1,8 +1,10 @@
 
 import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
+import { tileEntities } from 'core/map/generator/entities'
 import { tiles } from 'core/map/generator/tiles'
 import { frames } from 'core/map/texture'
+// import { createColorRangeFn } from 'core/map/utils'
 
 const CELL_SIZE = [16, 16]
 
@@ -11,13 +13,41 @@ const appOpts = {
 }
 
 const getTileSprite = (tile, x, y) => {
+  if (tile.entities.length) {
+    const entity = tile.entities[0]
+    const base = tileEntities[entity.type]
+
+    return (
+      <Sprite
+        key={`tileEntity[${x}:${y}]`}
+        x={x * CELL_SIZE[0]}
+        y={y * CELL_SIZE[1]}
+        texture={frames[base.frame]}
+        tint={base.color}
+        scale={1}
+      />
+    )
+  }
+
+  const base = tiles[tile.type]
+
+  // const color = createColorRangeFn(
+  //   base.colorModulation[2],
+  //   base.colorModulation[3]
+  // )(tile.elevation)
+
+  // Interpolating by elevation isn't super useful, for example, mountains only
+  // range in elevation between 0.75 and 1.0, so we'd have to normalise based
+  // on tile elevation rules.
+  const color = base.colorModulation[0]
+
   return (
     <Sprite
       key={`tile[${x}:${y}]`}
       x={x * CELL_SIZE[0]}
       y={y * CELL_SIZE[1]}
-      texture={frames[tile.frame]}
-      tint={tile.colorModulation[0]}
+      texture={frames[base.frame]}
+      tint={color}
       scale={1}
     />
   )
@@ -33,8 +63,7 @@ export const Map = ({ data, size }) => {
 
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      const d = data[y][x]
-      const tile = tiles[d.type]
+      const tile = data[y][x]
       elems.push(getTileSprite(tile, x, y))
     }
   }

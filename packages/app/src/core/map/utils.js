@@ -26,7 +26,7 @@ export const toHexString = compose(
 export const toHex = str => parseInt(str, 16)
 
 /**
- * @param value<float> where 0 < value <= 1
+ * @param value <float> where 0 < value <= 1
  * @returns <number> a hex value i.e. 0xFF00FF
  */
 export const createColorRangeFn = (min, max) => compose(

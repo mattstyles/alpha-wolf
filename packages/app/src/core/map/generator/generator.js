@@ -3,6 +3,7 @@ import FastSimplexNoise from 'fast-simplex-noise'
 
 import { generateTile, tileTypes } from './tiles'
 import { applyRivers } from './riverGenerator'
+import { applyTileEntities } from './entityGenerator'
 
 /**
  * Tile type is for plains, hills and mountains are dictated only by elevation
@@ -88,6 +89,7 @@ export const generateMap = props => {
   }
 
   data = applyRivers(data, props.riverFrequency.value)
+  data = applyTileEntities(data, props)
 
   return data
 }

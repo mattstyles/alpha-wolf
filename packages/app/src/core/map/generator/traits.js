@@ -13,7 +13,7 @@ export const params = {
   caveFrequency: {
     min: 0,
     max: 1,
-    value: 0.25
+    value: 0.02
   },
   riverFrequency: {
     min: 0,
@@ -23,6 +23,6 @@ export const params = {
   vegetationSeedRate: {
     min: 0,
     max: 1,
-    value: 0.2
+    value: 0.05
   }
 }

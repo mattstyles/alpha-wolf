@@ -23,10 +23,10 @@ export const tiles = {
   TileMountain: {
     character: '^',
     colorModulation: [
-      0xD4D6E0,
       0xFAFBFF,
-      [212, 214, 224],
-      [250, 251, 255]
+      0xD4D6E0,
+      [250, 251, 255],
+      [212, 214, 224]
     ],
     frame: 0
   },
