@@ -78,6 +78,11 @@ const applyCaves = (data, freq) => {
   return data
 }
 
+// @TODO
+// TileEntities should have their own array, it makes some sense to have
+// them attached to the underlying map, but it is also quite likely to be
+// easier to manage if they are just in an array of tile entities with
+// location data also attached, similar to how entities would work.
 export const applyTileEntities = (data, props) => {
   const { vegetationSeedRate, caveFrequency } = props
 
