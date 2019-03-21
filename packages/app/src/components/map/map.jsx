@@ -1,7 +1,7 @@
 
 import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
-import { tileEntities } from 'core/map/generator/entities'
+// import { tileEntities } from 'core/map/generator/entities'
 import { tiles } from 'core/map/generator/tiles'
 import { frames } from 'core/map/texture'
 // import { createColorRangeFn } from 'core/map/utils'
@@ -13,21 +13,22 @@ const appOpts = {
 }
 
 const getTileSprite = (tile, x, y) => {
-  if (tile.entities.length) {
-    const entity = tile.entities[0]
-    const base = tileEntities[entity.type]
-
-    return (
-      <Sprite
-        key={`tileEntity[${x}:${y}]`}
-        x={x * CELL_SIZE[0]}
-        y={y * CELL_SIZE[1]}
-        texture={frames[base.frame]}
-        tint={base.color}
-        scale={1}
-      />
-    )
-  }
+  // @TODO remove entity rendering as structure has changed a little
+  // if (tile.entities.length) {
+  //   const entity = tile.entities[0]
+  //   const base = tileEntities[entity.type]
+  //
+  //   return (
+  //     <Sprite
+  //       key={`tileEntity[${x}:${y}]`}
+  //       x={x * CELL_SIZE[0]}
+  //       y={y * CELL_SIZE[1]}
+  //       texture={frames[base.frame]}
+  //       tint={base.color}
+  //       scale={1}
+  //     />
+  //   )
+  // }
 
   const base = tiles[tile.type]
 

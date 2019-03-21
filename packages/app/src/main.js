@@ -1,5 +1,6 @@
 
 import { render } from 'react-dom'
+import { debug } from 'raid-addons'
 
 import { signal } from 'signals'
 import { App } from 'components/app'
@@ -8,16 +9,16 @@ import { Navigation } from 'components/navigation'
 import { update as mapUpdate } from 'core/map/updates'
 
 if (process.env.DEBUG) {
-  window.signal = signal
-  signal.register((state, event) => {
-    console.log(event, '::', state)
-    return state
-  })
+  signal.register(debug('>>'))
 }
 
 const el = document.querySelector('.js-main')
 
 signal.register(mapUpdate)
+
+if (process.env.DEBUG) {
+  signal.register(debug('<<'))
+}
 
 signal.observe(state => {
   render(

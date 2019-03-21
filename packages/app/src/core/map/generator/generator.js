@@ -89,7 +89,30 @@ export const generateMap = props => {
   }
 
   data = applyRivers(data, props.riverFrequency.value)
-  data = applyTileEntities(data, props)
+  // data = applyTileEntities(data, props)
 
   return data
+}
+
+/**
+ * Generates core entities data
+ */
+export const generateEntities = (map, props) => {
+  let entities = {}
+  entities = applyTileEntities(entities, map, props)
+
+  return entities
+}
+
+/**
+ * Generate world
+ */
+export const generate = props => {
+  let data = generateMap(props)
+  let entities = generateEntities(data, props)
+
+  return {
+    data,
+    entities
+  }
 }

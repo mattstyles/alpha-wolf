@@ -6,6 +6,7 @@ export const initialState = {
   [KEY]: {
     data: null,
     size: MAP_SIZE,
+    entities: {},
     ...params
   }
 }

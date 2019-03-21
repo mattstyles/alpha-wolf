@@ -1,5 +1,6 @@
 
 import { random } from 'lodash/fp'
+import uuid from 'uuid/v1'
 
 import { generateTileEntity, tileEntities } from './entities'
 
@@ -22,9 +23,6 @@ const getSite = (data, testFn, maxTries = 10) => {
   while (!tile && i++ < maxTries) {
     let [x, y] = [random(0, w - 1), random(0, h - 1)]
     let t = data[y][x]
-    // if ((t.type === 'TilePlains' || t.type === 'TileHills') && t.precipitation > 0.25) {
-    //   tile = [x, y]
-    // }
 
     if (testFn(t)) {
       tile = [x, y]
@@ -34,7 +32,23 @@ const getSite = (data, testFn, maxTries = 10) => {
   return tile
 }
 
-const applyVegetation = (data, seedRate) => {
+const applyEntity = (map, entities, location, type) => {
+  const [x, y] = location
+  const tile = map[y][x]
+
+  if (tile.entities.length) {
+    return
+  }
+
+  const id = uuid()
+  entities[id] = generateTileEntity({
+    type,
+    position: [x, y]
+  })
+  tile.entities.push(id)
+}
+
+const applyVegetation = (entities, data, seedRate) => {
   const size = data.length * data[0].length
 
   let i = 0
@@ -42,21 +56,14 @@ const applyVegetation = (data, seedRate) => {
   while (i++ < size * seedRate) {
     const location = getSite(data, getValidPlantSite)
     if (location) {
-      const [x, y] = location
-      const tile = data[y][x]
-
-      if (tile.entities.length <= 1) {
-        tile.entities.push(generateTileEntity({
-          type: 'TEPlant'
-        }))
-      }
+      applyEntity(data, entities, location, 'TEPlant')
     }
   }
 
-  return data
+  return entities
 }
 
-const applyCaves = (data, freq) => {
+const applyCaves = (entities, data, freq) => {
   const size = data.length * data[0].length
 
   let i = 0
@@ -64,30 +71,18 @@ const applyCaves = (data, freq) => {
   while (i++ < size * freq) {
     const location = getSite(data, getValidCaveSite)
     if (location) {
-      const [x, y] = location
-      const tile = data[y][x]
-
-      if (tile.entities.length <= 1) {
-        tile.entities.push(generateTileEntity({
-          type: 'TECave'
-        }))
-      }
+      applyEntity(data, entities, location, 'TECave')
     }
   }
 
-  return data
+  return entities
 }
 
-// @TODO
-// TileEntities should have their own array, it makes some sense to have
-// them attached to the underlying map, but it is also quite likely to be
-// easier to manage if they are just in an array of tile entities with
-// location data also attached, similar to how entities would work.
-export const applyTileEntities = (data, props) => {
+export const applyTileEntities = (entities, map, props) => {
   const { vegetationSeedRate, caveFrequency } = props
 
-  data = applyVegetation(data, vegetationSeedRate.value)
-  data = applyCaves(data, caveFrequency.value)
+  entities = applyVegetation(entities, map, vegetationSeedRate.value)
+  entities = applyCaves(entities, map, caveFrequency.value)
 
-  return data
+  return entities
 }
