@@ -53,7 +53,7 @@ const createRoot = (data) => {
  * Creates a chain of positions to become rivers.
  * Can return no chain, or a single length chain, or chain up to MAX_RIVER_LENGTH.
  * Rivers will form by flowing in to the adjacent tile with the lowest elevation
- * and will finish when it either reaches a local minimum of the max length.
+ * and will finish when it either reaches a local minimum or the max length.
  */
 const createChain = (data) => {
   const position = createRoot(data)

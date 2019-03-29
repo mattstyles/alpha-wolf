@@ -32,7 +32,7 @@ const Overlay = styled('div')`
 
 // @TODO this could be way more efficient, it doesn't need several canvasses to
 // show overlays
-const Main = ({ data, size }) => {
+const Main = ({ data, size, entities }) => {
   if (!data) {
     return null
   }
@@ -43,7 +43,7 @@ const Main = ({ data, size }) => {
   return (
     <>
       <Shell>
-        <Map data={data} size={size} />
+        <Map data={data} size={size} entities={entities} />
         {isHeatVisible && <Overlay opacity={0.5}>
           <HeatMap
             data={data}

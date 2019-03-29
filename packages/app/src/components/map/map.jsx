@@ -1,7 +1,7 @@
 
 import { Stage, Container, Sprite } from '@inlet/react-pixi/dist/react-pixi.module'
 
-// import { tileEntities } from 'core/map/generator/entities'
+import { tileEntities } from 'core/map/generator/entities'
 import { tiles } from 'core/map/generator/tiles'
 import { frames } from 'core/map/texture'
 // import { createColorRangeFn } from 'core/map/utils'
@@ -12,24 +12,23 @@ const appOpts = {
   background: 0x404040
 }
 
-const getTileSprite = (tile, x, y) => {
-  // @TODO remove entity rendering as structure has changed a little
-  // if (tile.entities.length) {
-  //   const entity = tile.entities[0]
-  //   const base = tileEntities[entity.type]
-  //
-  //   return (
-  //     <Sprite
-  //       key={`tileEntity[${x}:${y}]`}
-  //       x={x * CELL_SIZE[0]}
-  //       y={y * CELL_SIZE[1]}
-  //       texture={frames[base.frame]}
-  //       tint={base.color}
-  //       scale={1}
-  //     />
-  //   )
-  // }
+const getEntitySprite = (entity) => {
+  const base = tileEntities[entity.type]
+  const [x, y] = entity.position
 
+  return (
+    <Sprite
+      key={`entity[${x}:${y}]`}
+      x={x * CELL_SIZE[0]}
+      y={y * CELL_SIZE[1]}
+      texture={frames[base.frame]}
+      tint={base.color}
+      scale={1}
+    />
+  )
+}
+
+const getTileSprite = (tile, x, y) => {
   const base = tiles[tile.type]
 
   // const color = createColorRangeFn(
@@ -54,12 +53,14 @@ const getTileSprite = (tile, x, y) => {
   )
 }
 
-export const Map = ({ data, size }) => {
+export const Map = ({ data, size, entities }) => {
   if (!data) {
     return null
   }
 
   const [w, h] = size
+  // @TODO is allocating in the render func a good idea, vs manually
+  // deleting an arrays items?
   let elems = []
 
   for (let y = 0; y < h; y++) {
@@ -67,6 +68,10 @@ export const Map = ({ data, size }) => {
       const tile = data[y][x]
       elems.push(getTileSprite(tile, x, y))
     }
+  }
+
+  for (let id in entities) {
+    elems.push(getEntitySprite(entities[id]))
   }
 
   return (
