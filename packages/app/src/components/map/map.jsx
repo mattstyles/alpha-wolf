@@ -5,6 +5,7 @@ import { tileEntities } from 'core/map/generator/entities'
 import { tiles } from 'core/map/generator/tiles'
 import { frames } from 'core/map/texture'
 // import { createColorRangeFn } from 'core/map/utils'
+import { iterate } from 'core/map/utils'
 
 const CELL_SIZE = [16, 16]
 
@@ -59,16 +60,7 @@ export const Map = ({ data, size, entities }) => {
   }
 
   const [w, h] = size
-  // @TODO is allocating in the render func a good idea, vs manually
-  // deleting an arrays items?
-  let elems = []
-
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      const tile = data[y][x]
-      elems.push(getTileSprite(tile, x, y))
-    }
-  }
+  let elems = iterate(getTileSprite, data)
 
   for (let id in entities) {
     elems.push(getEntitySprite(entities[id]))

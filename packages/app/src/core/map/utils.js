@@ -1,5 +1,5 @@
 
-import { join, map, compose } from 'lodash/fp'
+import { join, map, compose, curry } from 'lodash/fp'
 
 export const createTo1d = width => (x, y) => (y * width) + x
 
@@ -75,3 +75,27 @@ export const getPatch = (data, position, dim = [-1, 1]) => {
 
   return patch
 }
+
+/**
+ * Iterates over the 2d map data array running `fn` on the tile data
+ * at each [x, y].
+ * fn = (tile: Tile, x: Integer, y: Integer) => _
+ * `fn` can return anything, it’ll all be stuffed in to an array and
+ * returned when `iterate` completes
+ */
+export const iterate = curry((fn, data) => {
+  // @TODO is allocating here a good idea as iterate is often run in
+  // render funcs?
+  let elems = []
+  const w = data[0].length
+  const h = data.length
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const tile = data[y][x]
+      elems.push(fn(tile, x, y))
+    }
+  }
+
+  return elems
+})
