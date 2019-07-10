@@ -33,6 +33,10 @@ export const useAction = ({ onMount, onUnmount }) => {
       }
     }
 
+    if (!onUnmount) {
+      return
+    }
+
     return () => {
       const { type, payload = null } = onUnmount
       if (type) {
